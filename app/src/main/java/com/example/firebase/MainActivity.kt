@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         bind.crear.setOnClickListener {
             bind.texto.text = "Datos creados"
             identificador = ref.child("personas").push().key!!
-            nuevapersona = Persona("pepe", "jk", "kj", "email", 5)
+            nuevapersona = Persona("Miguel", "Mata", "Ramos", "mataramosmiguel@gmail.com", 21)
             ref.child("personas").child(identificador).setValue(nuevapersona)
 
         }
@@ -57,16 +57,17 @@ class MainActivity : AppCompatActivity() {
 
         bind.ver.setOnClickListener {
             var res = ""
+
             ref.child("personas")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         snapshot.children.forEach { hijo: DataSnapshot? ->
                             val pojo = hijo?.getValue(Persona::class.java)
-                            res += pojo?.nombre + "\n" +
-                                    pojo?.apellido1 + "\n" +
-                                    pojo?.apellido2 + "\n" +
-                                    pojo?.email + "\n" +
-                                    pojo?.edad
+                            res += "Nombre -> "+pojo?.nombre + "\n" +
+                                    "Apellido 1 -> "+pojo?.apellido1 + "\n" +
+                                    "Apellido 2 -> "+pojo?.apellido2 + "\n" +
+                                    "Email -> "+pojo?.email + "\n" +
+                                    "Edad -> "+pojo?.edad + "\n\n"
                         }
 
 
